@@ -1,12 +1,24 @@
-SUBDIRS=blog  cpp  go wifi 
+export ROOTDIR=$(shell pwd)
+export PRODUCT_BUILD_DATE=$(shell date '+%Y-%m-%d %H:%M:%S')
+export PRODUCT_DATE=$(shell date '+y%m%d')
+export PRODUCT_BUILD_NAME=$(shell whoami) 
 
-all:
-	for d in $(SUBDIRS); do [ -d $$d ] && $(MAKE) -C $$d; done
+
+$(shell mkdir -p $())
+
+DIRS = blog  cpp  go wifi 
+
+all:subdirs
+
+.PHONY: subdirs
+
+subdirs:$(DIRS)
+	for d in $(DIRS); do [ -d $$d ] && $(MAKE) -C $$d || exit 1; done
 
 clean:
-	for d in $(SUBDIRS); do [ -d $$d ] && $(MAKE) -C $$d clean; done
-	rm -f *~
+	echo $(DIRS)
+	for d in $(DIRS); do [ -d $$d ] && $(MAKE) -C $$d clean || exit 1; done
 
 install:
-	for d in $(SUBDIRS); do [ -d $$d ] && $(MAKE) -C $$d install; done
+	for d in $(DIRS); do [ -d $$d ] && $(MAKE) -C $$d install || exit 1; done
 
