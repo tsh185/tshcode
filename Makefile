@@ -1,10 +1,10 @@
 export ROOTDIR=$(shell pwd)
+
+include BuildEnv.mk
+
 export PRODUCT_BUILD_DATE=$(shell date '+%Y-%m-%d %H:%M:%S')
 export PRODUCT_DATE=$(shell date '+y%m%d')
 export PRODUCT_BUILD_NAME=$(shell whoami) 
-
-
-$(shell mkdir -p $())
 
 DIRS = blog  cpp  go wifi 
 
